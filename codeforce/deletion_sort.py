@@ -4,7 +4,7 @@ input=sys.stdin.readline
 def up(a)->bool:
     n=len(a)
     j=True
-    for i in range(1,n-1):
+    for i in range(1,n):
         if a[i]<a[i-1]:
             j=False
     return j
