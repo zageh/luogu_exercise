@@ -14,7 +14,10 @@ def mini(s:str):
     ret=list(s)
     n=len(s)
     for i in range(1,n-1):
-        if s[i-1]=='1' and s[i+1]=='1':
+        if ret[i-1]=='1' and ret[i+1]=='1':
+            ret[i]='1'
+    for i in range(1,n-1):
+        if ret[i-1]=='1' and ret[i+1]=='1':
             ret[i]='0'
     ans=ret.count('1')
     return ans

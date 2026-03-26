@@ -5,24 +5,18 @@ length,n,k=map(int,input().strip().split())
 pos=list(map(int,input().strip().split()))
 
 dis=[]
-last=0
-for p in pos:
-    dis.append(p-last)
-    last=p
-dis.append(length-pos[-1])
+for i in range(1,n):
+    dis.append(pos[i]-pos[i-1])
     
 def check(m:int):
-    num=k
+    used=0
     for d in dis:
-        if d/num>m:
+        used+=(d-1)//m
+        if used>k:
             return False
-        for i in range(2,num):
-            if d/i<=m:
-                num-=i
-                break
     return True
 
-l=min(dis)
+l=1
 r=max(dis)
 while l<r:
     mid=(l+r)//2
