@@ -6,13 +6,16 @@ for _ in range(t):
     n,c,k=map(int,input().strip().split())
     mon=list(map(int,input().strip().split()))
     
+    mon.sort()
+    
     for m in mon:
-        if c>=m+1 and k>0:
-            k-=1
-            c+=m+1
+        if c>=m and k>0:
+            used=min(k,c-m)
+            c+=m+used
+            k-=used
         elif c>=m:
             c+=m
         else:
-            pass
+            break
         
     print(c)

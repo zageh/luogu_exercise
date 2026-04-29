@@ -19,3 +19,12 @@ if total<s:
     
 for k in range(r-1,-1,-1):
     sum_l[k]+=sum_l[k+1]
+    
+cur=mn=total
+
+for k in range(1,r+1):
+    cur+=s-sum_l[k]
+    if mn>cur:
+        mn=cur
+        
+print(mn)

@@ -21,7 +21,7 @@ ans+=cnt[6]
 ans+=min(cnt[5],cnt[1])
 
 if cnt[5]:
-    for i in range(1,5):
+    for i in range(2,5):
         if cnt[i]<cnt[5]:
             cnt[5]-=cnt[i]
             ans+=cnt[i]
@@ -55,11 +55,6 @@ if cnt[3]:
         ch=min(cnt[3],cnt[2],cnt[1])
         cnt[1]-=ch
         cnt[2]-=ch
-        cnt[3]-=ch
-        ans+=ch
-    if cnt[1]>=3 and cnt[3]:
-        ch=min(cnt[3],cnt[1]//3)
-        cnt[1]-=3*ch
         cnt[3]-=ch
         ans+=ch
     if cnt[2]>=2 and cnt[3]:

@@ -32,4 +32,4 @@ while pq:
                 dist[v][i+1]=d
                 heapq.heappush(pq,(dist[v][i+1],v,i+1))
 
-print(dist[t][k])
+print(min(dist[t]))

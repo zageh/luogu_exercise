@@ -6,7 +6,7 @@ mx=(1,-1,0,0,1,1,-1,-1)
 my=(0,0,1,-1,1,-1,1,-1)
 
 n,m=map(int,input().split())
-field=['0']*m
+field=['']*n
 for i in range(n):
     s=input().strip()
     field[i]=s
