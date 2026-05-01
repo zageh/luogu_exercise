@@ -1,63 +1,68 @@
 import sys
 
 data=sys.stdin.read().split()
-
-inf=100005
-ans=[0]*(inf<<2)
-tag=[0]*(inf<<2)
-
 n=int(data[0])
 m=int(data[1])
-idx=n+2
 
-a=[0]+[int(x) for x in data[2:2+n]]
+a=[0]+[int(x) for x in data[2:n+2]]
+b=[0]*(n+1)
+for i in range(1,n+1):
+    b[i]=a[i]-a[i-1]
+    
+ans=[0]*(n<<2)
+tag=[0]*(n<<2)
 
 def ls(p):
-    return p*2
+    return p<<1
 def rs(p):
-    return p*2+1
+    return p<<1|1
 
-def f(p,l,r,k):
-    ans[p]+=(r-l+1)*k
-    tag[p]+=k
-    
 def push_up(p):
     ans[p]=ans[ls(p)]+ans[rs(p)]
-    
-def build(p,l,r):
+
+def build (p,l,r):
     tag[p]=0
     
     if l==r:
-        ans[p]=a[l]
+        ans[p]=b[l]
         return
     
-    mid=((l+r)>>1)
+    mid=(l+r)>>1
     build(ls(p),l,mid)
     build(rs(p),mid+1,r)
     
     push_up(p)
     
+def f(p,l,r,k):
+    tag[p]+=k
+    ans[p]+=(r-l+1)*k
+    
 def push_down(p,l,r):
-    mid=((l+r)>>1)
+    mid=(l+r)>>1
+    
+    if not tag[p]:
+        return
     
     f(ls(p),l,mid,tag[p])
     f(rs(p),mid+1,r,tag[p])
+    
     tag[p]=0
     
 def update(p,tl,tr,l,r,k):
     if tl<=l and tr>=r:
         f(p,l,r,k)
-        return
+        return 
     
     push_down(p,l,r)
     mid=(l+r)>>1
     if tl<=mid:
         update(ls(p),tl,tr,l,mid,k)
+        
     if tr>mid:
         update(rs(p),tl,tr,mid+1,r,k)
         
     push_up(p)
-    
+        
 def query(p,ql,qr,l,r):
     res=0
     
@@ -70,30 +75,38 @@ def query(p,ql,qr,l,r):
     
     if ql<=mid:
         res+=query(ls(p),ql,qr,l,mid)
-        
     if qr>mid:
-        res+=query(rs(p),ql,qr,mid+1,r)
-        
+        res+=query(rs(p),ql,qr,mid+1,r)    
+    
     return res
 
 build(1,1,n)
 
+idx=n+2
+out=[]
 for _ in range(m):
     check=int(data[idx])
     
     if check==1:
-        x=int(data[idx+1])
-        y=int(data[idx+2])
+        l=int(data[1+idx])
+        r=int(data[idx+2])
         k=int(data[idx+3])
+        d=int(data[idx+4])
         
-        idx+=4
+        idx+=5
         
-        update(1,x,y,1,n,k)
+        update(1,l,l,1,n,k)
+        
+        if l+1<=r:
+            update(1,l+1,r,1,n,d)
+        if r+1<=n:
+            update(1,r+1,r+1,1,n,-(k+(r-l)*d))
         
     else:
-        x=int(data[idx+1])
-        y=int(data[idx+2])
+        p=int(data[idx+1])
         
-        idx+=3
+        idx+=2
         
-        print(query(1,x,y,1,n))
+        out.append(str(query(1,1,p,1,n)))
+        
+print('\n'.join(out))
