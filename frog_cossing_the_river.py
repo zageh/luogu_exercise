@@ -11,13 +11,13 @@ for i in range(1,n):
     pre[i]=h[i-1]+pre[i-1]
 
 def check(length):
-    for i in range(n+1-length):
-        if pre[i+length]-pre[i]:
+    for i in range(n-length):
+        if pre[i+length]-pre[i]<2*x:
             return False
         
     return True
 
-l,r=0,n
+l,r=1,n
 while l<r:
     mid=(l+r)>>1
     
