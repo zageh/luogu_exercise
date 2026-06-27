@@ -81,5 +81,3 @@ for l in range(1,maxa+1):
     total=(total+ll*(pairs%mod))%mod
 
 print(total)
-        
-    

@@ -15,7 +15,7 @@ int main(){
     string up, down;
     cin >> up >> down;
 
-    auto ok = [&](int i, int st) {
+    auto ok = [&](int i, int st) -> bool {
         int a = (st >> 1) & 1;
         int b = st & 1;
 
@@ -25,7 +25,7 @@ int main(){
         return true;
     };
 
-    auto trans = [&](int pre, int cur) {
+    auto trans = [&](int pre, int cur) -> bool {
         if (pre == 0 && cur == 0) return false; 
         if (pre == 3 && cur == 3) return false; 
         return true;
